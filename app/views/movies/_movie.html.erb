@@ -1,0 +1,12 @@
+  <div class="media">
+      <%= image_tag movie.image_url %>
+  <div class="media-body">
+    <h5 class="mt-0"><%= link_to movie.title, movie %></h5>
+      <ul>
+        <li><%= movie.description %></li>
+        <li>Director: <%= movie.director %></li>
+        <li>Release Date: <%= movie.release_date %></li>
+        <li>Runtime: <%= movie.runtime_in_minutes %> </li>
+      </ul>
+    </div>
+  </div>

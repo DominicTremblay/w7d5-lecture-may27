@@ -1,0 +1,19 @@
+<p>
+<%= link_to 'All movies', movies_path %>
+</p>
+<%= movie_overview(@movie) %>
+
+
+
+  <div class="media show">
+      <%= image_tag @movie.image_url %>
+  <div class="media-body">
+    <h5 class="mt-0"><%= @movie.title%></h5>
+      <ul>
+        <li><%= @movie.description%></li>
+        <li>Director: <%= @movie.director %></li>
+        <li>Release Date: <%= @movie.release_date %></li>
+        <li>Runtime: <%= @movie.runtime_in_minutes %> </li>
+      </ul>
+    </div>
+  </div>
