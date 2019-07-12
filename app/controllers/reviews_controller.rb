@@ -5,11 +5,18 @@ class ReviewsController < ApplicationController
   end
 
   def create
-    review = Review.new(review_params)
-    # if review.save
-    #   redirect_to  
-    # else
-    #   render :new
+    
+    @movie = Movie.find(params[:movie_id])
+    @movie.reviews.new(review_params)
+    
+    if @movie.save
+      redirect_to @movie
+    else
+      @review = Review.new
+      # @review.errors.add(@movie.errors.full_messages)
+      @reviews = @movie.reviews.order(created_at: :desc)
+      render '/movies/show'
+    end
   end
 
   def destroy
