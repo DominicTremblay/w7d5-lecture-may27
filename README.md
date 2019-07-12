@@ -1,166 +1,50 @@
-# W7D4 - Lecture
+# W7D5 - Lecture
 
-- Rails: view and route helpers
+- Nested Resources
 
-  - Store logic you want to reuse
-  - Simplify the logic in your views
+# typical show page for a movie
 
-- Partials
+`/movies/4`
 
-## Helpers
+# a typical list of comments
 
-- Helpful methods that creates reusable piece of code
+`/reviews`
 
-- Asset helpers
-- Route helpers
-- Views helpers
-- Custom Helpers
+However, a review cannot exist without a movie. So we need a nested routes like the following.
 
-### Asset Helps
+# reviews of movie with id 4
 
-- stylesheet_link_tag
-- javascript_include_tag
+`/movies/4/reviews/`
 
-### Route helpers
+# add reviews to movie app
 
-- Used any of prefixes when doing `bin/rake routes`
-- Add path to the prefix ex.: products_path
+- create a Review model with a migration
+- run the migration
+- set the routes (new, create)
+- Create a reviews controller
+- Modify the show view of movie
 
-- This will output `/products/1`
+# routes for reviews
 
-```ruby
-item = Product.first
-product_path(item)
-```
-
-### Views helpers
-
-- link_to
-- button_tag
-- image_tag
-- form_tag
-- etc.
-
-#### Link_to
-
-`link_to "my link","http://www.mylink.com"`
-
-- Active Record can read an object to extract the path
+- Create the nested route in `routes.rb`
 
 ```ruby
-item = Product.first
-link_to item.name, item
-```
-
-- We can also use a route helper to create the link
-
-```ruby
-item = Product.first
-link_to item.name, product_path(item)
-```
-
-- You can use a block for the `link_to`
-- ex.: \_product.html.erb
-
-- You cannot use link_to in a controller, because it will output html
-- But you can use `redirect_to root_path` for example
-
-#### image_tag
-
-- this will output `<img src="/uploads/product/image/1/apparel1.jpg" alt="Apparel1" />`
-
-```ruby
-item = Product.first
-image_tag item.image
-```
-
-#### form helpers
-
-- utility to create your forms
-
-```ruby
-<%= form_for @quote do |form| %>
-  <% if quote.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(quote.errors.count, "error") %> prohibited this quote from being saved:</h2>
-
-      <ul>
-      <% quote.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
-
-```
-
-### Custom Helpers
-
-- Take some complexity out of the view
-
-```ruby
-def movie_overview(movie)
-  "Movie title: #{movie.title} Director: #{movie.director} Release date: #{movie.release_date}"
-end
-```
-
-```ruby
-  module ApplicationHelper
-    def user_email(user)
-      if user && user.email.present?
-        user.email
-      else
-        "no email present"
-      end
-    end
+  resources :movies do
+    resource :reviews
   end
 ```
 
-```ruby
-def fancy_price(product)
-    if product.price > 1000
-      "#{product.price}??? Hella expensive!"
-    else
-      "#{product.price} is kinda reasonable."
-    end
-  end
-```
+- `/movies/:movie_id/reviews/new` Display the new review form
+- `/movies/:movie_id/reviews` Post to create a new review in the database
+- `/movies/:movie_id/reviews/:id/` Show page of a review
 
-## Partials
+* Delete a review
 
-- Partials allows you to dry up your code in your views
-- Reuse parts of HTML/erb content
-- We can pass local variables into the partial
-- Use the render method within the view
-- Partials are very useful in rendering collections
+`DELETE /movies/:movie_id/reviews/:id`
 
-- partial syntax
+## Running the app
 
-`<%= render partial: "partial name", locals: {some_variable: @some_variable} %>`
-
-## Demo
-
-- We used the Rails command-line to generate a new app
-- We generated the model and the controller
-- We did create the views manually and used some of the helpers
-
-To start the quotes app:
-
+- clone the repo
 - bundle install
-- rails s -b 0.0.0.0
-
-## References
-
-- [Layouts and Rendering in Rails](https://guides.rubyonrails.org/layouts_and_rendering.html)
-
--[The Complete List of Ruby on Rails Helpers](https://jasoncharnes.com/rails-helpers/)
+- `rake db:reset`
+- `rails s -b 0.0.0.0`
