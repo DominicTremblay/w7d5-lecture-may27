@@ -1,6 +1,5 @@
 require 'faker'
 
-Review.destroy_all
 Movie.destroy_all
 
 Movie.create!({
@@ -26,11 +25,3 @@ Movie.create!({
   image_url: 'https://m.media-amazon.com/images/M/MV5BMDg2YzI0ODctYjliMy00NTU0LTkxODYtYTNkNjQwMzVmOTcxXkEyXkFqcGdeQXVyNjg2NjQwMDQ@._V1_SY1000_CR0,0,648,1000_AL_.jpg',
   description: "After killing a member of the shadowy international assassin's guild, the High Table, John Wick is excommunicado", 
   release_date: '2019-06-17'})  
-
-Movie.all.each do |movie|
-  5.times do
-    movie.reviews.create!(
-      rating: rand(10) + 1, 
-      comment: Faker::TvShows::GameOfThrones.quote)
-  end
-end
