@@ -6,7 +6,7 @@
 
 `/movies/4`
 
-# a typical list of comments
+# a typical list of reviews
 
 `/reviews`
 
