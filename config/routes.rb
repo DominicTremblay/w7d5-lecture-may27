@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :movies 
+  get 'reviews/create'
+  get 'reviews/destroy'
+  resources :movies do
+    resources :reviews, only: [:create, :destroy]
+  end
   
   
 end
