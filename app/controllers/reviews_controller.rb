@@ -18,7 +18,6 @@ class ReviewsController < ApplicationController
   def destroy
     movie =  Movie.find(params[:movie_id])
     review = Review.find(params[:id])
-    raise    
     if review.destroy
       redirect_to movie_path(movie), notice: 'review deleted'  
     else 
