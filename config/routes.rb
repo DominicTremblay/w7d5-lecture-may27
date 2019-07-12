@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
-resources :movies
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  get 'reviews/edit'
+  get 'reviews/create'
+  get 'reviews/destroy'
+  resources :movies do 
+    resources :reviews, only: [:new, :edit, :create, :destroy]
+  end
+  
+  
 end

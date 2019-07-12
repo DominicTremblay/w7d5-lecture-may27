@@ -1,3 +1,5 @@
+<div class="container">
+
 <p>
 <%= link_to 'All movies', movies_path %>
 </p>
@@ -15,5 +17,15 @@
         <li>Release Date: <%= @movie.release_date %></li>
         <li>Runtime: <%= @movie.runtime_in_minutes %> </li>
       </ul>
-    </div>
+
+    </div>    
   </div>
+
+<h3>Reviews</h3>
+
+<div class="container">
+<ul class="list-group">
+  <%= render partial: 'review', collection: @reviews %>
+</ul>
+</div>
+</div>
